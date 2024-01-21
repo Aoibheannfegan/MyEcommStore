@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Category Filter</h2>
+    <div class="listings-grid">
+        {% for listing in listing_category %}
+            <div class="listing-card">
+                <h5><a href="{% url 'listing_page' listing.id %}">{{ listing.title }}</a></h5>
+                <p>{{ listing.description }}</p>
+                <p>Current Price: ${{ listing.start_bid }}</p>
+                {% if listing.image_url %}
+                    <img src="{{ listing.image_url }}" alt="{{ listing.title }}" style="width: 100%">
+                {% else %}
+                    <p>[No image availble]</p>
+                {% endif %}
+            </div>
+        {% endfor%}
+    </div>
+{% endblock %}
