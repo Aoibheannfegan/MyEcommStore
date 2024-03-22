@@ -1,19 +1,37 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
-    <div class="listings-grid">
-        {% for listing in listings %}
-            <div class="listing-card">
-                <h5><a href="{% url 'listing_page' listing.id %}">{{ listing.title }}</a></h5>
-                <p>{{ listing.description }}</p>
-                <p>Current Price: ${{ listing.current_bid }}</p>
-                {% if listing.image_url %}
-                    <img src="{{ listing.image_url }}" alt="{{ listing.title }}" style="width: 100%">
-                {% else %}
-                    <p></p>
-                {% endif %}
-            </div>
-        {% endfor%}
+<div id="homepage">
+    <div id="header-image-container">
+        <h1 id="header-title">SHOP</h1>
+        <img id="background-image" src="../../static/auctions/backgroundImg.jpg" alt="shop with plants" />
     </div>
+    <aside id="categories-container">
+        <h2 class="title">Categories</h2>
+        <ul id="categories-list">
+            {% for category, name in category_choices %}
+                <li class="category-options" id={{name}}><a href="{% url 'category' name %}">{{ name }}</a></li>
+            {% endfor %}
+        </ul>
+    </aside>
+    <section id="listings-container">
+        <!-- <h2>Active Listings</h2> -->
+        <div class="listings-grid">
+            {% for listing in listings %}
+                <div class="listing-card">
+                    {% if listing.image_url %}
+                        <img class="listing-thumbnail" src="{{ listing.image_url }}" alt="{{ listing.title }}" style="width: 100%">
+                    {% else %}
+                        <img class="listing-thumbnail" id="no-image-found" src="../../static/auctions/noimage.jpeg" alt="nothing found" />
+                    {% endif %}
+                    <h5 class="listing-title"><a href="{% url 'listing_page' listing.id %}">{{ listing.title }}</a></h5>
+                    <p>${{ listing.current_bid }}</p> 
+                    {% if user.is_authenticated %}
+                        <button class="bid-button"><a href="{% url 'listing_page' listing.id %}">Bid on Item</a></button>
+                    {% endif %} 
+                </div>
+            {% endfor%}
+        </div>
+    </section>
+</div>
 {% endblock %}

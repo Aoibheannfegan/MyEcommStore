@@ -28,8 +28,10 @@ class NewListingForm(forms.ModelForm):
 
 def index(request):
     listings = Listings.objects.filter(active=True)
+    category_choices = Listings.CATEGORY_CHOICES
     return render(request, "auctions/index.html", {
-        "listings": listings
+        "listings": listings,
+        'category_choices': category_choices,
     })
 
 def login_view(request):
@@ -204,6 +206,9 @@ def categories(request):
 
 def category(request, category):
     listing_category = Listings.objects.filter(category = category, active=True)
+    category_choices = Listings.CATEGORY_CHOICES
     return render(request,  "auctions/category.html", {
-        'listing_category': listing_category
+        'listing_category': listing_category,
+        'category_choices': category_choices,
+        'current_category': category,
     })

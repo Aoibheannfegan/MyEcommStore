@@ -1,15 +1,39 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-     <h2>Watchlist</h2>
-     {% for watched in watching %}
-          <p>
-               <a href="{% url 'listing_page' watched.listing.id %}">{{ watched.listing }}</a>
-               {% if watched.listing.active == True %}
-                    (Auction Active)
-               {% else %}
-                    (Auction Closed)
-               {% endif %}
-          </p>
-     {% endfor %}
+     <section id="watchlist-section">
+          <div id='listing-header'>
+               <img id="listing-background-image" src="../../static/auctions/backgroundImg.jpg" alt="shop with plants" />
+           </div>
+           <div id="watchlist-main">
+               <h2 class="title">Watchlist</h2>
+               <ul id="watchlist">
+                    {% for watched in watching %}
+                         <li class="watchlist-list-item">
+                              
+                              <div class={% if watched.listing.active == True %} "watchlist-item" {% else %} "watchlist-item-inactive" {% endif %} >                         
+                                   <div class="watchlist-image">
+                                        {% if watched.listing.image_url %}
+                                        <img src="{{ watched.listing.image_url }}" alt="{{ listing.title }}" style="width: 100%;">
+                                        {% else %}
+                                        <img src="../../static/auctions/noimage.jpeg" alt="{{ listing.title }}" style="width: 100%;">
+                                        {% endif %}
+                                   </div>
+                                   <div>
+                                        <a href="{% url 'listing_page' watched.listing.id %}">{{ watched.listing }}</a>
+                                        <p>${{ watched.listing.current_bid }}</p>
+                                   </div>
+                                   <p>
+                                        {% if watched.listing.active == True %}
+                                             <strong>Active</strong>
+                                        {% else %}
+                                             Closed
+                                        {% endif %}
+                                   </p>
+                              </div>
+                         </li>
+                    {% endfor %}
+               </ul>
+          </div>
+     </section>
 {% endblock %}

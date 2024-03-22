@@ -1,16 +1,21 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <div class="container">
-        <h1>Create a New Listing</h1>
-        <div class="row">
-            <div class="col-lg-8 mb-4">
-                <form action="{% url 'create' %}" method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </form>
-            </div>
+    <div id="create-listing-container" class="create-listing-container">
+        <div id='listing-header'>
+            <img id="listing-background-image" src="../../static/auctions/backgroundImg.jpg" alt="shop with plants" />
         </div>
+        <section id="create-listing-section">
+            <h1 class="title">Create a New Listing</h1>
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <form id="create-listing-form" action="{% url 'create' %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="create-listing-button">Create</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
 {% endblock %}
